@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space X Rockets</title>
+  </head>
+  <body>
+    <h1>Rockets</h1>
+    <div id="root"></div>
+
+  </body>
+  <script>
+    async function getRockets() {
+      try {
+        const result = await fetch('http://localhost:3000/api/rockets')
+        const data = await result.json()
+        const rootElement = document.getElementById('root')
+
+        console.log(data.respuesta) // => []
+
+        data.respuesta.forEach((rocket)=>{
+          // Creamos los elementos
+          const header = document.createElement('h1')
+          header.textContent = rocket.rocket_name
+          const description = document.createElement('p')
+          description.textContent = rocket.description
+          
+          // Se agregan elementos al DOM
+          rootElement.appendChild(header)
+          rootElement.appendChild(description)
+        })
+
+      } catch(error) {
+        alert('Ha ocurrido un error')
+      }
+    }
+    getRockets()
+  </script>
+</html>
